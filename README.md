@@ -1,69 +1,82 @@
-# AI Excel Mastery Interviewer Pro
+# 🚀 AI Excel Mastery Interviewer Pro
 
-Welcome to the AI Excel Mastery Interviewer Pro, the world's most advanced Excel skills assessment platform. This enterprise-grade application provides a realistic, AI-driven mock interview experience for various job roles that require advanced Excel proficiency.
+**AI Excel Mastery Interviewer Pro** is the world's most advanced Excel skills assessment platform — delivering a realistic, AI-driven mock interview experience for roles that demand advanced Excel proficiency.  
 
-## Key Features
+This enterprise-grade application simulates real-world interviews with **dynamic, adaptive questioning**, provides **comprehensive evaluation reports**, and empowers recruiters, trainers, and candidates alike with **deep analytics**.
 
--   **AI-Powered Interviews:** Utilizes a powerful Large Language Model (LLM) to conduct dynamic and adaptive interviews.
--   **Role-Based Assessments:** Tailored interview questions for different job roles, including Financial Analyst, Data Analyst, Operations Analyst, Business Analyst, and Consultant.
--   **Adaptive Difficulty:** The difficulty of questions adjusts based on the candidate's performance.
--   **Comprehensive Evaluation:** Provides detailed feedback, including scores, strengths, weaknesses, and a final recommendation.
--   **Real-time Interaction:** Uses WebSockets for a seamless, real-time interview experience.
--   **Database Integration:** Stores session data, user responses, and analytics in a SQLite database.
--   **Analytics Dashboard:** Displays statistics about the interviews conducted.
--   **Modern Frontend:** A clean, responsive, and user-friendly interface built with HTML, CSS, and vanilla JavaScript.
+---
 
-## Tech Stack
+## 🖼️ Platform in Action  
 
-### Backend
+### Candidate Profile & Details  
+<img src="https://github.com/parimal1009/AI-Powered-Excel-Mock-Interviewer_/blob/main/images/user_details.png?raw=true" width="800" alt="User Details">
 
--   **Framework:** FastAPI
--   **WebSockets:** FastAPI's WebSocket support
--   **Database:** SQLite
--   **AI/ML:**
-    -   LangChain
-    -   Groq (for the LLM)
-    -   Hugging Face Sentence Transformers (for embeddings)
-    -   FAISS (for vector storage)
--   **Environment Management:** python-dotenv
+### Adaptive Assessment (Q&A + Evaluation)  
+<img src="https://github.com/parimal1009/AI-Powered-Excel-Mock-Interviewer_/blob/main/images/assessment_qna.png?raw=true" width="800" alt="Assessment QnA">
 
-### Frontend
+### Candidate Report after Assessment  
+<img src="https://github.com/parimal1009/AI-Powered-Excel-Mock-Interviewer_/blob/main/images/report.png?raw=true" width="800" alt="User Report">
 
--   HTML5
--   CSS3
--   JavaScript (Vanilla)
+### Analytics Dashboard  
+<img src="https://github.com/parimal1009/AI-Powered-Excel-Mock-Interviewer_/blob/main/images/analytics.png?raw=true" width="800" alt="Analytics Dashboard">
 
-## Getting Started
+---
 
-### Prerequisites
+## 🌟 Key Highlights  
 
--   Python 3.8+
--   A Groq API key
+- **AI-Powered Mock Interviews** – Conducted in real-time by a powerful LLM.  
+- **Role-Based Assessments** – Tailored interview questions for roles like **Financial Analyst, Data Analyst, Operations Analyst, Business Analyst, and Consultant**.  
+- **Adaptive Difficulty** – Questions adjust dynamically based on performance.  
+- **Detailed Evaluation** – Get immediate feedback with scores, strengths, weaknesses, and final recommendations.  
+- **Real-time Interaction** – WebSocket-driven seamless interview experience.  
+- **Analytics Dashboard** – Gain insights with interactive analytics.  
+- **Modern Frontend** – Clean, responsive UI with **HTML, CSS, and Vanilla JavaScript**.  
 
-### Installation
+---
 
-1.  **Clone the repository:**
+## ⚙️ Tech Stack  
 
-    ```bash
-    git clone https://github.com/your-username/ai-excel-interviewer.git
-    cd ai-excel-interviewer
-    ```
+### 🔹 Backend  
+- **Framework:** FastAPI  
+- **WebSockets:** FastAPI WebSocket support  
+- **Database:** SQLite  
+- **AI/ML:**  
+  - LangChain  
+  - Groq (LLM)  
+  - Hugging Face Sentence Transformers (embeddings)  
+  - FAISS (vector search)  
+- **Environment Management:** python-dotenv  
 
-2.  **Create and activate a virtual environment:**
+### 🔹 Frontend  
+- HTML5  
+- CSS3  
+- JavaScript (Vanilla)  
 
-    ```bash
-    python -m venv venv
-    # On Windows
-    venv\Scripts\activate
-    # On macOS/Linux
-    source venv/bin/activate
-    ```
+---
 
-3.  **Install the dependencies:**
+## 🚀 Getting Started  
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+### Prerequisites  
+- Python 3.8+  
+- A **Groq API key**  
+
+### Installation  
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/ai-excel-interviewer.git
+cd ai-excel-interviewer
+
+# Create & activate virtual environment
+python -m venv venv
+# On Windows
+venv\Scripts\activate
+# On macOS/Linux
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
 
 4.  **Set up your environment variables:**
 
@@ -136,5 +149,6 @@ The application uses a SQLite database with the following tables:
 -   `interview_analytics`: Stores analytics data about the interviews.
 
 ## Contributing
+
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue if you have any suggestions or find any bugs.
