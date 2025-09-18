@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Excel Mastery Interviewer Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-bottom: 3px solid #ecf0f1;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        .nav-tab {
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #7f8c8d;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab.active {
+            color: #2c3e50;
+            border-bottom-color: #3498db;
+        }
+
+        .nav-tab:hover {
+            color: #2c3e50;
+            background-color: #f8f9fa;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem 0;
+            min-height: 70vh;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Start Interview Section */
+        .start-section {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            border: 1px solid #ecf0f1;
+        }
+
+        .start-section h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background-color: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            width: 100%;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        /* Interview Interface */
+        .interview-container {
+            display: none;
+        }
+
+        .interview-container.active {
+            display: block;
+        }
+
+        .progress-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #ecf0f1;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #ecf0f1;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 0.25rem;
+        }
+
+        .question-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 1px solid #ecf0f1;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .question-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .badge-success {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .badge-warning {
+            background: #f39c12;
+            color: white;
+        }
+
+        .badge-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .answer-section {
+            margin-bottom: 2rem;
+        }
+
+        .answer-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 1rem;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+            background-color: white;
+        }
+
+        .answer-textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .answer-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .timer {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        .evaluation-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 1px solid #ecf0f1;
+            display: none;
+        }
+
+        .evaluation-section.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .score-display {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .score-total {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+        }
+
+        .feedback-text {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .strengths-weaknesses {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .strengths-weaknesses {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .strength-item, .weakness-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        /* Final Report */
+        .report-section {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 1px solid #ecf0f1;
+            margin-bottom: 2rem;
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .final-score {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .recommendation {
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .recommendation.strong {
+            background: #d5f4e6;
+            color: #27ae60;
+            border: 2px solid #27ae60;
+        }
+
+        .recommendation.moderate {
+            background: #fef9e7;
+            color: #f39c12;
+            border: 2px solid #f39c12;
+        }
+
+        .recommendation.consider {
+            background: #fadbd8;
+            color: #e74c3c;
+            border: 2px solid #e74c3c;
+        }
+
+        .report-content {
+            white-space: pre-wrap;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Analytics Dashboard */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .analytics-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border: 1px solid #ecf0f1;
+        }
+
+        .analytics-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-value {
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        /* Loading States */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #ecf0f1;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+        }
+
+        .alert-info {
+            background-color: #d6eaf8;
+            border-color: #3498db;
+            color: #2c3e50;
+        }
+
+        .alert-success {
+            background-color: #d5f4e6;
+            border-color: #27ae60;
+            color: #2c3e50;
+        }
+
+        .alert-warning {
+            background-color: #fef9e7;
+            border-color: #f39c12;
+            color: #2c3e50;
+        }
+
+        .alert-danger {
+            background-color: #fadbd8;
+            border-color: #e74c3c;
+            color: #2c3e50;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-tab {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .start-section {
+                padding: 2rem;
+            }
+
+            .question-section {
+                padding: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .answer-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .final-score {
+                font-size: 3rem;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+        .hidden { display: none; }
+        .visible { display: block; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>AI Excel Mastery Interviewer Pro</h1>
+            <p>The World's Most Advanced Excel Skills Assessment Platform - Enterprise Grade</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('start')">Start Interview</button>
+        <button class="nav-tab" onclick="showTab('analytics')">Analytics</button>
+        <button class="nav-tab" onclick="showTab('about')">About</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Start Interview Tab -->
+            <div id="start" class="tab-content active">
+                <div class="start-section" id="startForm">
+                    <h2>Begin Your Excel Mastery Assessment</h2>
+                    <form id="interviewStartForm">
+                        <div class="form-group">
+                            <label for="candidateName">Full Name (Optional)</label>
+                            <input type="text" id="candidateName" class="form-control" placeholder="Enter your full name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="candidateEmail">Email Address (Optional)</label>
+                            <input type="email" id="candidateEmail" class="form-control" placeholder="Enter your email address">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobRole">Target Role</label>
+                            <select id="jobRole" class="form-control" required>
+                                <option value="">Select your target role</option>
+                                <option value="financial_analyst">Financial Analyst</option>
+                                <option value="data_analyst">Data Analyst</option>
+                                <option value="operations_analyst">Operations Analyst</option>
+                                <option value="business_analyst">Business Analyst</option>
+                                <option value="consultant">Consultant</option>
+                            </select>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <strong>Assessment Overview:</strong><br>
+                            • Duration: 60-90 minutes<br>
+                            • Adaptive difficulty based on your responses<br>
+                            • Comprehensive evaluation across 8+ categories<br>
+                            • Real-world business scenarios and technical challenges
+                        </div>
+                        
+                        <button type="submit" class="btn btn-large" id="startBtn">
+                            Start Excel Mastery Assessment
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Interview Interface -->
+                <div class="interview-container" id="interviewInterface">
+                    <!-- Progress Section -->
+                    <div class="progress-section">
+                        <h3>Assessment Progress</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-number" id="currentScore">0</div>
+                                <div class="stat-label">Current Score</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="totalQuestions">0</div>
+                                <div class="stat-label">Questions Completed</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="percentageScore">0%</div>
+                                <div class="stat-label">Success Rate</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="skillLevel">Beginner</div>
+                                <div class="stat-label">Skill Level</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question Section -->
+                    <div class="question-section" id="questionSection">
+                        <div class="question-header">
+                            <h3 id="questionTitle">Loading Question...</h3>
+                            <div class="question-meta">
+                                <span class="badge badge-primary" id="questionCategory">Category</span>
+                                <span class="badge badge-warning" id="questionDifficulty">Difficulty</span>
+                                <span class="badge badge-success" id="questionType">Type</span>
+                            </div>
+                        </div>
+                        
+                        <div class="question-text" id="questionText">
+                            Please wait while we load your first question...
+                        </div>
+                        
+                        <div class="answer-section">
+                            <label for="answerTextarea">Your Response</label>
+                            <textarea 
+                                id="answerTextarea" 
+                                class="answer-textarea" 
+                                placeholder="Provide a comprehensive answer demonstrating your Excel expertise. Include specific examples, best practices, and business context where relevant."
+                                disabled
+                            ></textarea>
+                            
+                            <div class="answer-controls">
+                                <div class="timer">
+                                    Time: <span id="responseTimer">00:00</span>
+                                </div>
+                                <div>
+                                    <button class="btn" id="hintBtn" onclick="getHint()">Get Hint</button>
+                                    <button class="btn btn-success" id="submitBtn" onclick="submitAnswer()" disabled>
+                                        Submit Answer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Evaluation Section -->
+                    <div class="evaluation-section" id="evaluationSection">
+                        <h3>Response Evaluation</h3>
+                        <div class="score-display">
+                            <div class="score-number" id="questionScore">0</div>
+                            <div class="score-total">out of <span id="maxQuestionScore">10</span> points</div>
+                        </div>
+                        
+                        <div class="feedback-text" id="feedbackText">
+                            Evaluation feedback will appear here...
+                        </div>
+                        
+                        <div class="strengths-weaknesses">
+                            <div>
+                                <h4>Strengths Identified</h4>
+                                <div id="strengthsList"></div>
+                            </div>
+                            <div>
+                                <h4>Areas for Improvement</h4>
+                                <div id="improvementsList"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <button class="btn btn-large" id="nextQuestionBtn" onclick="getNextQuestion()">
+                                Continue to Next Question
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Final Report Section -->
+                    <div class="report-section hidden" id="finalReportSection">
+                        <div class="report-header">
+                            <h2>Excel Mastery Assessment Complete</h2>
+                            <div class="final-score" id="finalScore">0%</div>
+                            <div class="recommendation" id="finalRecommendation">Assessment Complete</div>
+                        </div>
+                        
+                        <div class="report-content" id="reportContent">
+                            Generating comprehensive assessment report...
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <button class="btn btn-large" onclick="startNewInterview()">
+                                Start New Assessment
+                            </button>
+                            <button class="btn" onclick="downloadReport()">
+                                Download Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Tab -->
+            <div id="analytics" class="tab-content">
+                <h2 class="mb-3">Assessment Analytics Dashboard</h2>
+                
+                <div class="analytics-grid" id="analyticsGrid">
+                    <div class="analytics-card">
+                        <h3>Overall Statistics</h3>
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Tab -->
+            <div id="about" class="tab-content">
+                <div class="start-section">
+                    <h2>About Excel Mastery Interviewer Pro</h2>
+                    <p>Our advanced AI-powered Excel assessment platform provides the most comprehensive evaluation of Excel skills available today. Designed for enterprise-level hiring decisions, this system adapts to candidate performance in real-time.</p>
+                    
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li><strong>Adaptive Assessment:</strong> Difficulty adjusts based on your performance</li>
+                        <li><strong>Real-World Scenarios:</strong> Business-focused questions and challenges</li>
+                        <li><strong>Comprehensive Coverage:</strong> 8+ categories from basic to expert level</li>
+                        <li><strong>Role-Specific Questions:</strong> Tailored to your target position</li>
+                        <li><strong>Detailed Analytics:</strong> In-depth performance breakdown and recommendations</li>
+                        <li><strong>Industry Expertise:</strong> Questions designed by Excel professionals</li>
+                    </ul>
+                    
+                    <h3>Assessment Categories</h3>
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <h4>Basic Concepts</h4>
+                            <p>Cell references, data types, validation strategies</p>
+                        </div>
+                        <div class="analytics-card">
+                            <h4>Formulas & Functions</h4>
+                            <p>Advanced lookup functions, dynamic arrays, optimization</p>
+                        </div>
+                        <div class="analytics-card">
+                            <h4>Data Analysis</h4>
+                            <p>Pivot tables, Power Query, statistical analysis</p>
+                        </div>
+                        <div class="analytics-card">
+                            <h4>Advanced Features</h4>
+                            <p>VBA, automation, enterprise architecture</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Global Variables
+        let currentSession = null;
+        let websocket = null;
+        let questionStartTime = null;
+        let timerInterval = null;
+        let currentQuestionData = null;
+
+        // Tab Management
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active class from all nav tabs
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked nav tab
+            event.target.classList.add('active');
+
+            // Load analytics if analytics tab is selected
+            if (tabName === 'analytics') {
+                loadAnalytics();
+            }
+        }
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start interview form handler
+            document.getElementById('interviewStartForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                startInterview();
+            });
+
+            // Load analytics on page load
+            loadAnalytics();
+
+            // Auto-resize textarea
+            const textarea = document.getElementById('answerTextarea');
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+            });
+        });
+
+        // Start Interview Function
+        async function startInterview() {
+            const startBtn = document.getElementById('startBtn');
+            const originalText = startBtn.textContent;
+            
+            startBtn.disabled = true;
+            startBtn.textContent = 'Initializing Assessment...';
+
+            try {
+                const formData = {
+                    role: document.getElementById('jobRole').value,
+                    candidate_name: document.getElementById('candidateName').value || null,
+                    candidate_email: document.getElementById('candidateEmail').value || null
+                };
+
+                const response = await fetch('/start-interview', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                currentSession = data.session_id;
+
+                // Hide start form and show interview interface
+                document.getElementById('startForm').style.display = 'none';
+                document.getElementById('interviewInterface').classList.add('active');
+
+                // Initialize WebSocket connection
+                initializeWebSocket();
+
+                showAlert('Assessment started successfully! Connecting to evaluation system...', 'success');
+
+            } catch (error) {
+                console.error('Error starting interview:', error);
+                showAlert('Failed to start assessment. Please try again.', 'danger');
+                startBtn.disabled = false;
+                startBtn.textContent = originalText;
+            }
+        }
+
+        // WebSocket Management
+        function initializeWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}/ws/${currentSession}`;
+            
+            websocket = new WebSocket(wsUrl);
+
+            websocket.onopen = function(event) {
+                console.log('WebSocket connected successfully');
+                showAlert('Connected to assessment system. Loading first question...', 'info');
+                
+                // Request first question
+                websocket.send(JSON.stringify({
+                    action: 'get_question'
+                }));
+            };
+
+            websocket.onmessage = function(event) {
+                const message = JSON.parse(event.data);
+                handleWebSocketMessage(message);
+            };
+
+            websocket.onclose = function(event) {
+                console.log('WebSocket connection closed');
+                if (event.code !== 1000) {
+                    showAlert('Connection lost. Please refresh the page to reconnect.', 'warning');
+                }
+            };
+
+            websocket.onerror = function(error) {
+                console.error('WebSocket error:', error);
+                showAlert('Connection error occurred. Please check your internet connection.', 'danger');
+            };
+        }
+
+        // Handle WebSocket Messages
+        function handleWebSocketMessage(message) {
+            switch (message.type) {
+                case 'question':
+                    displayQuestion(message.data);
+                    break;
+                case 'evaluation':
+                    displayEvaluation(message.data);
+                    break;
+                case 'final_report':
+                    displayFinalReport(message.data);
+                    break;
+                case 'progress':
+                    updateProgress(message.data);
+                    break;
+                case 'hint':
+                    showAlert(message.message, 'info');
+                    break;
+                case 'error':
+                    showAlert(message.message, 'danger');
+                    break;
+                case 'warning':
+                    showAlert(message.message, 'warning');
+                    break;
+                case 'pong':
+                    console.log('Connection alive');
+                    break;
+                default:
+                    console.log('Unknown message type:', message.type);
+            }
+        }
+
+        // Display Question
+        function displayQuestion(questionData) {
+            currentQuestionData = questionData;
+            
+            document.getElementById('questionTitle').textContent = `Question ${questionData.question_number}`;
+            document.getElementById('questionText').innerHTML = questionData.question;
+            document.getElementById('questionCategory').textContent = questionData.category.replace('_', ' ').toUpperCase();
+            document.getElementById('questionDifficulty').textContent = questionData.difficulty.toUpperCase();
+            document.getElementById('questionType').textContent = questionData.type.toUpperCase();
+
+            // Set badge colors based on difficulty
+            const difficultyBadge = document.getElementById('questionDifficulty');
+            difficultyBadge.className = 'badge';
+            if (questionData.difficulty === 'expert') {
+                difficultyBadge.classList.add('badge-danger');
+            } else if (questionData.difficulty === 'advanced') {
+                difficultyBadge.classList.add('badge-warning');
+            } else {
+                difficultyBadge.classList.add('badge-success');
+            }
+
+            // Enable answer controls
+            document.getElementById('answerTextarea').disabled = false;
+            document.getElementById('answerTextarea').value = '';
+            document.getElementById('answerTextarea').focus();
+            document.getElementById('submitBtn').disabled = false;
+
+            // Hide evaluation section
+            document.getElementById('evaluationSection').classList.remove('show');
+
+            // Start timer
+            startTimer();
+
+            // Update progress
+            if (questionData.progress) {
+                document.getElementById('progressFill').style.width = questionData.progress + '%';
+            }
+        }
+
+        // Timer Functions
+        function startTimer() {
+            questionStartTime = Date.now();
+            clearInterval(timerInterval);
+            
+            timerInterval = setInterval(function() {
+                const elapsed = Math.floor((Date.now() - questionStartTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                document.getElementById('responseTimer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            return Math.floor((Date.now() - questionStartTime) / 1000);
+        }
+
+        // Submit Answer
+        function submitAnswer() {
+            const answer = document.getElementById('answerTextarea').value.trim();
+            
+            if (!answer) {
+                showAlert('Please provide an answer before submitting.', 'warning');
+                return;
+            }
+
+            if (answer.length < 20) {
+                if (!confirm('Your answer seems quite brief. Are you sure you want to submit?')) {
+                    return;
+                }
+            }
+
+            const responseTime = stopTimer();
+            
+            // Disable controls
+            const answerTextarea = document.getElementById('answerTextarea');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (answerTextarea) answerTextarea.disabled = true;
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Evaluating...';
+            }
+
+            try {
+                // Send answer via WebSocket
+                websocket.send(JSON.stringify({
+                    action: 'submit_answer',
+                    answer: answer,
+                    response_time: responseTime,
+                    context: {
+                        category: currentQuestionData.category,
+                        topic: currentQuestionData.topic,
+                        difficulty: currentQuestionData.difficulty,
+                        question_number: currentQuestionData.question_number
+                    }
+                }));
+                
+                console.log('Answer submitted successfully');
+                
+            } catch (error) {
+                console.error('Failed to submit answer:', error);
+                showAlert('Failed to submit answer. Please try again.', 'danger');
+                
+                // Re-enable controls
+                if (answerTextarea) answerTextarea.disabled = false;
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Answer';
+                }
+            }
+        }
+
+        // Display Evaluation
+        function displayEvaluation(evaluationData) {
+            document.getElementById('questionScore').textContent = evaluationData.score;
+            document.getElementById('maxQuestionScore').textContent = evaluationData.max_score;
+            document.getElementById('feedbackText').innerHTML = evaluationData.feedback;
+
+            // Update overall stats
+            document.getElementById('currentScore').textContent = `${evaluationData.total_score}/${evaluationData.total_max_score}`;
+            document.getElementById('percentageScore').textContent = `${Math.round(evaluationData.percentage)}%`;
+
+            // Display strengths
+            const strengthsList = document.getElementById('strengthsList');
+            strengthsList.innerHTML = '';
+            if (evaluationData.strengths && evaluationData.strengths.length > 0) {
+                evaluationData.strengths.forEach(strength => {
+                    const item = document.createElement('div');
+                    item.className = 'strength-item';
+                    item.textContent = '✓ ' + strength;
+                    strengthsList.appendChild(item);
+                });
+            } else {
+                strengthsList.innerHTML = '<div class="strength-item">Analysis in progress...</div>';
+            }
+
+            // Display improvements
+            const improvementsList = document.getElementById('improvementsList');
+            improvementsList.innerHTML = '';
+            if (evaluationData.improvements && evaluationData.improvements.length > 0) {
+                evaluationData.improvements.forEach(improvement => {
+                    const item = document.createElement('div');
+                    item.className = 'weakness-item';
+                    item.textContent = '→ ' + improvement;
+                    improvementsList.appendChild(item);
+                });
+            } else {
+                improvementsList.innerHTML = '<div class="weakness-item">Continue your excellent work!</div>';
+            }
+
+            // Show evaluation section
+            document.getElementById('evaluationSection').classList.add('show');
+            document.getElementById('evaluationSection').scrollIntoView({ behavior: 'smooth' });
+
+            // Reset submit button
+            document.getElementById('submitBtn').textContent = 'Submit Answer';
+        }
+
+        // Get Next Question
+        function getNextQuestion() {
+            const nextQuestionBtn = document.getElementById('nextQuestionBtn');
+            
+            if (!websocket || websocket.readyState !== WebSocket.OPEN) {
+                showAlert('Connection lost. Please refresh the page to reconnect.', 'danger');
+                return;
+            }
+            
+            if (nextQuestionBtn) {
+                nextQuestionBtn.disabled = true;
+                nextQuestionBtn.textContent = 'Loading...';
+            }
+
+            // Update total questions completed
+            const totalQuestions = parseInt(document.getElementById('totalQuestions').textContent) + 1;
+            document.getElementById('totalQuestions').textContent = totalQuestions;
+
+            try {
+                // Request next question
+                websocket.send(JSON.stringify({
+                    action: 'get_question'
+                }));
+                
+                console.log('Requested next question');
+                
+            } catch (error) {
+                console.error('Failed to request next question:', error);
+                showAlert('Failed to load next question. Please try again.', 'danger');
+                
+                if (nextQuestionBtn) {
+                    nextQuestionBtn.disabled = false;
+                    nextQuestionBtn.textContent = 'Continue to Next Question';
+                }
+            }
+
+            // Reset button after delay
+            setTimeout(() => {
+                if (nextQuestionBtn) {
+                    nextQuestionBtn.disabled = false;
+                    nextQuestionBtn.textContent = 'Continue to Next Question';
+                }
+            }, 2000);
+        }
+
+        // Display Final Report
+        function displayFinalReport(reportData) {
+            if (reportData.completed) {
+                // Hide question and evaluation sections
+                document.getElementById('questionSection').style.display = 'none';
+                document.getElementById('evaluationSection').style.display = 'none';
+
+                // Show final report
+                const reportSection = document.getElementById('finalReportSection');
+                reportSection.classList.remove('hidden');
+
+                // Update final score
+                document.getElementById('finalScore').textContent = reportData.executive_summary.percentage + '%';
+
+                // Set recommendation styling
+                const recommendationEl = document.getElementById('finalRecommendation');
+                recommendationEl.textContent = reportData.executive_summary.recommendation;
+                
+                if (reportData.executive_summary.recommendation.includes('Strongly Recommend')) {
+                    recommendationEl.className = 'recommendation strong';
+                } else if (reportData.executive_summary.recommendation.includes('Recommend')) {
+                    recommendationEl.className = 'recommendation moderate';
+                } else {
+                    recommendationEl.className = 'recommendation consider';
+                }
+
+                // Display report content
+                document.getElementById('reportContent').textContent = reportData.report;
+
+                // Update final progress
+                document.getElementById('progressFill').style.width = '100%';
+                
+                // Scroll to report
+                reportSection.scrollIntoView({ behavior: 'smooth' });
+
+                showAlert('Assessment completed! Your comprehensive report is ready.', 'success');
+            }
+        }
+
+        // Get Hint
+        function getHint() {
+            if (websocket && websocket.readyState === WebSocket.OPEN) {
+                websocket.send(JSON.stringify({
+                    action: 'get_hint'
+                }));
+            }
+        }
+
+        // Update Progress
+        function updateProgress(progressData) {
+            document.getElementById('currentScore').textContent = `${progressData.current_score}/${progressData.max_possible_score}`;
+            document.getElementById('totalQuestions').textContent = progressData.questions_completed;
+            document.getElementById('percentageScore').textContent = Math.round(progressData.percentage) + '%';
+            document.getElementById('skillLevel').textContent = progressData.skill_level.replace('_', ' ').toUpperCase();
+            
+            const progressPercentage = (progressData.questions_completed / 25) * 100;
+            document.getElementById('progressFill').style.width = progressPercentage + '%';
+        }
+
+        // Start New Interview
+        function startNewInterview() {
+            // Reset all states
+            currentSession = null;
+            currentQuestionData = null;
+            questionStartTime = null;
+            clearInterval(timerInterval);
+
+            if (websocket) {
+                websocket.close();
+                websocket = null;
+            }
+
+            // Reset UI
+            document.getElementById('startForm').style.display = 'block';
+            document.getElementById('interviewInterface').classList.remove('active');
+            document.getElementById('questionSection').style.display = 'block';
+            document.getElementById('finalReportSection').classList.add('hidden');
+
+            // Reset form
+            document.getElementById('interviewStartForm').reset();
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('startBtn').textContent = 'Start Excel Mastery Assessment';
+
+            // Reset progress
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('currentScore').textContent = '0';
+            document.getElementById('totalQuestions').textContent = '0';
+            document.getElementById('percentageScore').textContent = '0%';
+            document.getElementById('skillLevel').textContent = 'Beginner';
+
+            // Clear evaluation
+            document.getElementById('evaluationSection').classList.remove('show');
+
+            showAlert('Ready to start a new assessment!', 'info');
+        }
+
+        // Download Report
+        function downloadReport() {
+            const reportContent = document.getElementById('reportContent').textContent;
+            const finalScore = document.getElementById('finalScore').textContent;
+            const recommendation = document.getElementById('finalRecommendation').textContent;
+            
+            const fullReport = `EXCEL MASTERY ASSESSMENT REPORT
+========================================
+Final Score: ${finalScore}
+Recommendation: ${recommendation}
+
+${reportContent}
+
+Generated on: ${new Date().toLocaleDateString()}
+Assessment Platform: AI Excel Mastery Interviewer Pro
+`;
+
+            const blob = new Blob([fullReport], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Excel_Assessment_Report_${new Date().getTime()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Alert System
+        function showAlert(message, type = 'info') {
+            console.log(`Alert [${type}]:`, message);
+            
+            // Remove existing alerts
+            const existingAlerts = document.querySelectorAll('.alert-dynamic');
+            existingAlerts.forEach(alert => alert.remove());
+            
+            // Create new alert
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dynamic`;
+            alertDiv.style.position = 'fixed';
+            alertDiv.style.top = '20px';
+            alertDiv.style.right = '20px';
+            alertDiv.style.zIndex = '9999';
+            alertDiv.style.maxWidth = '400px';
+            alertDiv.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            alertDiv.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; font-size: 18px; cursor: pointer; margin-left: 10px;">&times;</button>
+                </div>
+            `;
+            
+            document.body.appendChild(alertDiv);
+            
+            // Auto-remove after delay (except for errors)
+            if (type !== 'danger') {
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        alertDiv.remove();
+                    }
+                }, type === 'success' ? 3000 : 5000);
+            }
+        }
+
+        // Load Analytics
+        async function loadAnalytics() {
+            const analyticsGrid = document.getElementById('analyticsGrid');
+            
+            try {
+                const response = await fetch('/analytics');
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    const analytics = data.data;
+                    
+                    analyticsGrid.innerHTML = `
+                        <div class="analytics-card">
+                            <h3>Overall Performance</h3>
+                            <div class="metric">
+                                <span>Total Sessions</span>
+                                <span class="metric-value">${analytics.total_sessions}</span>
+                            </div>
+                            <div class="metric">
+                                <span>Completed Assessments</span>
+                                <span class="metric-value">${analytics.completed_sessions}</span>
+                            </div>
+                            <div class="metric">
+                                <span>Completion Rate</span>
+                                <span class="metric-value">${analytics.completion_rate.toFixed(1)}%</span>
+                            </div>
+                            <div class="metric">
+                                <span>Average Score</span>
+                                <span class="metric-value">${analytics.avg_score}%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <h3>Role Distribution</h3>
+                            ${Object.entries(analytics.role_distribution).map(([role, count]) => `
+                                <div class="metric">
+                                    <span>${role.replace('_', ' ').toUpperCase()}</span>
+                                    <span class="metric-value">${count}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <h3>System Status</h3>
+                            <div class="metric">
+                                <span>Platform Status</span>
+                                <span class="metric-value" style="color: #27ae60;">Operational</span>
+                            </div>
+                            <div class="metric">
+                                <span>Assessment Engine</span>
+                                <span class="metric-value" style="color: #27ae60;">Active</span>
+                            </div>
+                            <div class="metric">
+                                <span>AI Evaluation</span>
+                                <span class="metric-value" style="color: #27ae60;">Online</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading analytics:', error);
+                analyticsGrid.innerHTML = `
+                    <div class="analytics-card">
+                        <h3>Analytics Unavailable</h3>
+                        <p>Unable to load analytics data at this time. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Utility Functions
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', function(event) {
+            // Ctrl/Cmd + Enter to submit answer
+            if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+                const submitBtn = document.getElementById('submitBtn');
+                if (!submitBtn.disabled) {
+                    submitAnswer();
+                }
+            }
+            
+            // Escape to get hint
+            if (event.key === 'Escape') {
+                getHint();
+            }
+        });
+
+        // Connection Health Check
+        function startHeartbeat() {
+            setInterval(() => {
+                if (websocket && websocket.readyState === WebSocket.OPEN) {
+                    websocket.send(JSON.stringify({ action: 'ping' }));
+                }
+            }, 30000); // Every 30 seconds
+        }
+
+        // Auto-save answer draft
+        function setupAutoSave() {
+            const textarea = document.getElementById('answerTextarea');
+            let saveTimeout;
+
+            textarea.addEventListener('input', function() {
+                clearTimeout(saveTimeout);
+                saveTimeout = setTimeout(() => {
+                    if (currentSession) {
+                        localStorage.setItem(`draft_${currentSession}`, this.value);
+                    }
+                }, 1000);
+            });
+        }
+
+        // Initialize auto-save and heartbeat when document loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setupAutoSave();
+        });
+
+        // Handle page visibility change (pause timer when tab is not active)
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                // Page is hidden - could pause timer here if needed
+                console.log('Tab became inactive');
+            } else {
+                // Page is visible
+                console.log('Tab became active');
+            }
+        });
+
+        // Handle beforeunload (warn user about leaving during assessment)
+        window.addEventListener('beforeunload', function(event) {
+            if (currentSession && currentQuestionData) {
+                event.preventDefault();
+                event.returnValue = 'You have an active Excel assessment. Are you sure you want to leave?';
+                return event.returnValue;
+            }
+        });
+    </script>
+</body>
+</html>
