@@ -29,6 +29,14 @@ from langchain_community.vectorstores import FAISS
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 
+# Add this at the top of your existing main.py file (after imports)
+import os
+from pathlib import Path
+
+# Render-specific configurations
+PORT = int(os.environ.get("PORT", 8000))
+ENVIRONMENT = os.environ.get("ENVIRONMENT", "production")
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -1567,4 +1575,8 @@ async def get_available_roles():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    if ENVIRONMENT == "development":
+        uvicorn.run("main:app", host="0.0.0.0", port=PORT, reload=True)
+    else:
+        # For production, let gunicorn handle this
+        uvicorn.run("main:app", host="0.0.0.0", port=PORT, reload=False)

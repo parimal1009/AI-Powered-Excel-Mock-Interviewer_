@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: excel-interviewer-pro
+    env: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn main:app --bind 0.0.0.0:$PORT --worker-class uvicorn.workers.UvicornWorker --workers 1 --timeout 120
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.6
+      - key: GROQ_API_KEY
+        sync: false  # This will be set manually in Render dashboard
+    healthCheckPath: /health
+    autoDeploy: true
+    rootDir: .
+    dockerfilePath: ./Dockerfile

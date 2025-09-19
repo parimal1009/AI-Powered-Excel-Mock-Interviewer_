@@ -1,55 +1,54 @@
-# AI Excel Mock Interviewer - Requirements
 # World's Best Excel Skills Assessment System
 # Optimized for production deployment with latest stable versions
 
 # Core Framework
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
+fastapi
+uvicorn[standard]
 
 # WebSocket Support
-websockets==12.0
+websockets
 
 # Environment Management
-python-dotenv==1.0.0
+python-dotenv
 
 # Data Models & Validation
-pydantic==2.5.0
+pydantic
 
 # LangChain Core & Components
-langchain==0.1.0
-langchain-groq==0.0.3
-langchain-huggingface==0.0.1
-langchain-community==0.0.10
-langchain-core==0.1.0
-langchain-text-splitters==0.0.1
+langchain
+langchain-groq
+langchain-huggingface
+langchain-community
+langchain-core
+langchain-text-splitters
 
 # Vector Store & Embeddings
-sentence-transformers==2.2.2
-faiss-cpu==1.7.4
-numpy==1.24.3
+sentence-transformers
+faiss-cpu
+numpy
 
 # HTTP Client
-httpx==0.25.2
+httpx
 
 # Async File Handling
-aiofiles==23.2.1
+aiofiles
 
 # Security
-python-multipart==0.0.6
+python-multipart
 
 # Development & Testing (Optional - remove for production)
-pytest==7.4.3
-pytest-asyncio==0.21.1
-black==23.11.0
-isort==5.12.0
-flake8==6.1.0
+pytest
+pytest-asyncio
+black
+isort
+flake8
 
 # Production Deployment
-gunicorn==21.2.0
+gunicorn
 
 # Memory Optimization
-psutil==5.9.6
+psutil
 
 # Additional Utilities
-typing-extensions==4.8.0
-packaging==23.2
+typing-extensions
+packaging
